@@ -5,6 +5,12 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+  workflow_dispatch:
+    inputs:
+      cypressSpec:
+        description: 'Optional spec pattern to run (e.g. cypress/e2e/sample.cy.js)'
+        required: false
+        default: ''
 
 jobs:
   cypress-run:
@@ -22,5 +28,13 @@ jobs:
         run: npm ci
 
       - name: Run Cypress tests
-        run: npx cypress run
-
+        env:
+          CYPRESS_SPEC: ${{ github.event.inputs.cypressSpec || '' }}
+        run: |
+          if [ -n "$CYPRESS_SPEC" ]; then
+            echo "Running Cypress with spec: $CYPRESS_SPEC"
+            npx cypress run --spec "$CYPRESS_SPEC"
+          else
+            echo "Running Cypress with default spec pattern"
+            npx cypress run
+          fi
