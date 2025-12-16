@@ -1,0 +1,15 @@
+{
+  "name": "cypress-test-framework",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test": "cypress run",
+    "test:chrome": "cypress run --browser chrome",
+    "test:firefox": "cypress run --browser firefox"
+  },
+  "devDependencies": {
+    "cypress": "^13.6.0"
+  }
+}
