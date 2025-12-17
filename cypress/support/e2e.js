@@ -3,8 +3,5 @@
 // You can add global configuration and behavior that modifies Cypress here.
 
 // Import commands.js using ES2015 syntax:
-import './commands';
-
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
-
+import './commands'
+// Step definitions are pulled automatically from cypress/support/step_definitions by the Cucumber preprocessor.
