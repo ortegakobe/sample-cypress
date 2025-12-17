@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       cypressSpec:
-        description: 'Optional spec pattern to run (e.g. cypress/e2e/sample_basic.feature)'
+        description: 'Optional spec pattern to run (e.g. cypress/e2e/basic_bdd.cy.js)'
         required: false
         default: ''
 
@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Cypress BDD tests with JUnit reporter
+      - name: Run Cypress BDD-style tests with JUnit reporter
         env:
           CYPRESS_SPEC: ${{ github.event.inputs.cypressSpec || '' }}
         run: |
@@ -39,7 +39,7 @@ jobs:
               --reporter mocha-junit-reporter \
               --reporter-options mochaFile=cypress/results/junit/results-[hash].xml,toConsole=false
           else
-            echo "Running all Cucumber feature specs"
+            echo "Running all BDD-style specs"
             npx cypress run \
               --reporter mocha-junit-reporter \
               --reporter-options mochaFile=cypress/results/junit/results-[hash].xml,toConsole=false
