@@ -10,7 +10,9 @@ module.exports = defineConfig({
     viewportWidth: 1280,
     viewportHeight: 720,
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      // Node event hooks for reporters/plugins can be added here.
+      // Mochawesome is configured via the Cypress CLI reporter options in CI.
+      return config
     },
   },
 })

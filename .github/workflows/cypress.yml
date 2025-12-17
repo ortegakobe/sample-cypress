@@ -27,14 +27,28 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Cypress tests
+      - name: Run Cypress tests with Mochawesome HTML report
         env:
           CYPRESS_SPEC: ${{ github.event.inputs.cypressSpec || '' }}
         run: |
+          mkdir -p cypress/reports
           if [ -n "$CYPRESS_SPEC" ]; then
             echo "Running Cypress with spec: $CYPRESS_SPEC"
-            npx cypress run --spec "$CYPRESS_SPEC"
+            npx cypress run \
+              --spec "$CYPRESS_SPEC" \
+              --reporter mochawesome \
+              --reporter-options reportDir=cypress/reports,overwrite=true,html=true,json=true,reportFilename=index
           else
             echo "Running Cypress with default spec pattern"
-            npx cypress run
+            npx cypress run \
+              --reporter mochawesome \
+              --reporter-options reportDir=cypress/reports,overwrite=true,html=true,json=true,reportFilename=index
           fi
+
+      - name: Upload HTML report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-html-report
+          path: cypress/reports
+          if-no-files-found: error
