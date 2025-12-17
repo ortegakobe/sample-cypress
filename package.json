@@ -13,6 +13,7 @@
     "cypress": "^13.6.0",
     "@badeball/cypress-cucumber-preprocessor": "^24.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
+    "crypto-browserify": "^3.12.0",
     "esbuild": "^0.21.0",
     "mocha-junit-reporter": "^2.2.0",
     "mochawesome": "^7.1.3",
